@@ -1,3 +1,6 @@
 spring:
   application:
     name: demo-tg-bot
+bot:
+  token: ${token}
+  username: ${username}

@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.boris.demo.tg.bot.api.command.CommandInvoker;
+import ru.boris.demo.tg.bot.config.TgBotProperty;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class TgBot extends TelegramLongPollingBot {
     private final List<BotCommand> botCommands;
 
     private final CommandInvoker commandInvoker;
+
+    private final TgBotProperty tgBotProperty;
 
     @PostConstruct
     private void setUp() {
@@ -39,12 +42,12 @@ public class TgBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "";
+        return tgBotProperty.getUsername();
     }
 
     @Override
     public String getBotToken() {
-        return "";
+        return tgBotProperty.getToken();
     }
 
     @Override
