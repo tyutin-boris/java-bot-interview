@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import ru.boris.demo.tg.bot.TgBot;
 import ru.boris.demo.tg.bot.api.command.CommandInvoker;
 import ru.boris.demo.tg.bot.api.service.TgMessageService;
+import ru.boris.demo.tg.bot.command.DesignPrincipalLeftCommand;
 import ru.boris.demo.tg.bot.command.DesignPrincipalRightCommand;
 import ru.boris.demo.tg.bot.command.DesignPrinciplesCommand;
 import ru.boris.demo.tg.bot.command.StartCommand;

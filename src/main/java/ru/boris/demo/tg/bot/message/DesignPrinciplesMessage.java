@@ -3,17 +3,16 @@ package ru.boris.demo.tg.bot.message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ru.boris.demo.tg.bot.api.message.TgMessage;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import static ru.boris.demo.tg.bot.dto.CallbackQueryType.DESIGN_PRINCIPAL_LEFT;
 import static ru.boris.demo.tg.bot.dto.CallbackQueryType.DESIGN_PRINCIPAL_RIGHT;
 
 public class DesignPrinciplesMessage extends TgMessage {
 
-    private final List<String> designPrinciples = new LinkedList<>();
-    private final ListIterator<String> designPrincipleIterator;
+    private final List<String> designPrinciples = new ArrayList<>();
+    private int current;
 
     public DesignPrinciplesMessage(Long chatId, Integer messageId) {
         super(chatId, messageId);
@@ -30,24 +29,26 @@ public class DesignPrinciplesMessage extends TgMessage {
         designPrinciples.add(4, "fife");
         designPrinciples.add(5, "six");
         designPrinciples.add(6, "seven");
+        this.current = 0;
 
-        this.designPrincipleIterator = designPrinciples.listIterator();
     }
 
     public String next() {
-        if (designPrincipleIterator.hasNext()) {
-            return designPrincipleIterator.next();
-        } else {
-            return designPrinciples.getFirst();
+        if (current < designPrinciples.size() - 1) {
+            return designPrinciples.get(++current);
         }
+
+        current = 0;
+        return designPrinciples.get(current);
     }
 
     public String prev() {
-        if (designPrincipleIterator.hasPrevious()) {
-            return designPrincipleIterator.previous();
-        } else {
-            return designPrinciples.getLast();
+        if (current <= 0) {
+            current = designPrinciples.size() - 1;
+            return designPrinciples.get(current);
         }
+
+        return designPrinciples.get(--current);
     }
 
     private List<List<InlineKeyboardButton>> getButtons() {
@@ -56,7 +57,7 @@ public class DesignPrinciplesMessage extends TgMessage {
         left.setCallbackData(DESIGN_PRINCIPAL_LEFT.getName());
 
         InlineKeyboardButton right = new InlineKeyboardButton();
-        right.setText(DESIGN_PRINCIPAL_LEFT.getText());
+        right.setText(DESIGN_PRINCIPAL_RIGHT.getText());
         right.setCallbackData(DESIGN_PRINCIPAL_RIGHT.getName());
 
         return List.of(List.of(left, right));

@@ -14,12 +14,12 @@ import ru.boris.demo.tg.bot.message.DesignPrinciplesMessage;
 
 import java.util.Optional;
 
-public class DesignPrincipalRightCommand implements Command {
+public class DesignPrincipalLeftCommand implements Command {
 
     private final TgBot bot;
     private final TgMessageService messageService;
 
-    public DesignPrincipalRightCommand(TgBot bot, TgMessageService messageService) {
+    public DesignPrincipalLeftCommand(TgBot bot, TgMessageService messageService) {
         this.bot = bot;
         this.messageService = messageService;
     }
@@ -38,7 +38,7 @@ public class DesignPrincipalRightCommand implements Command {
 
             DesignPrinciplesMessage tgMessage = (DesignPrinciplesMessage) messageService
                     .getTgMessage(chatId, messageId);
-            String text = tgMessage.next();
+            String text = tgMessage.prev();
             InlineKeyboardMarkup inlineKeyboardMarkup = tgMessage.getInlineKeyboardMarkup();
 
             EditMessageText response = new EditMessageText();
@@ -57,6 +57,6 @@ public class DesignPrincipalRightCommand implements Command {
 
     @Override
     public CommandType getCommandType() {
-        return CommandType.DESIGN_PRINCIPAL_RIGHT;
+        return CommandType.DESIGN_PRINCIPAL_LEFT;
     }
 }
