@@ -3,16 +3,17 @@ package ru.boris.demo.tg.bot.message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ru.boris.demo.tg.bot.api.message.TgMessage;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import static ru.boris.demo.tg.bot.dto.CallbackQueryType.DESIGN_PRINCIPAL_LEFT;
 import static ru.boris.demo.tg.bot.dto.CallbackQueryType.DESIGN_PRINCIPAL_RIGHT;
 
 public class DesignPrinciplesMessage extends TgMessage {
 
-    private final List<String> designPrinciples = new ArrayList<>();
-    private int current;
+    private final List<String> designPrinciples = new LinkedList<>();
+    private ListIterator<String> designPrinciplesIterator;
 
     public DesignPrinciplesMessage(Long chatId, Integer messageId) {
         super(chatId, messageId);
@@ -29,26 +30,22 @@ public class DesignPrinciplesMessage extends TgMessage {
         designPrinciples.add(4, "fife");
         designPrinciples.add(5, "six");
         designPrinciples.add(6, "seven");
-        this.current = 0;
 
+        this.designPrinciplesIterator = designPrinciples.listIterator();
     }
 
-    public String next() {
-        if (current < designPrinciples.size() - 1) {
-            return designPrinciples.get(++current);
+    public void nextText() {
+        if (!designPrinciplesIterator.hasNext()) {
+            designPrinciplesIterator = designPrinciples.listIterator();
         }
-
-        current = 0;
-        return designPrinciples.get(current);
+        text = designPrinciplesIterator.next();
     }
 
-    public String prev() {
-        if (current <= 0) {
-            current = designPrinciples.size() - 1;
-            return designPrinciples.get(current);
+    public void prevText() {
+        if (!designPrinciplesIterator.hasPrevious()) {
+            designPrinciplesIterator = designPrinciples.listIterator();
         }
-
-        return designPrinciples.get(--current);
+        text = designPrinciplesIterator.previous();
     }
 
     private List<List<InlineKeyboardButton>> getButtons() {
