@@ -16,22 +16,29 @@ public class DesignPrinciplesMessage extends TgMessage {
     private TgMessageDesignPrinciplesText current;
 
     public DesignPrinciplesMessage(Long chatId, Integer messageId) {
-        super(chatId, messageId);
+        super(chatId);
+        this.messageId = messageId;
         this.inlineKeyboardMarkup.setKeyboard(getButtons());
         this.text = TgMessageDesignPrinciplesText.ONE.getText();
         this.current = TgMessageDesignPrinciplesText.ONE;
     }
 
-    public String next() {
+    public void next() {
         TgMessageDesignPrinciplesText currentText = current;
         this.current = currentText.next();
-        return current.getText();
+        this.text = currentText.getText();
     }
 
-    public String previous() {
+    public void previous() {
         TgMessageDesignPrinciplesText currentText = current;
         this.current = currentText.previous();
-        return current.getText();
+        this.text = currentText.getText();
+    }
+
+    @Override
+    public String getText() {
+        current();
+        return text;
     }
 
     private List<List<InlineKeyboardButton>> getButtons() {

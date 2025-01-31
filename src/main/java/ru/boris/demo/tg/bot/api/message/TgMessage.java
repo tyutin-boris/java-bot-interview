@@ -10,7 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 @RequiredArgsConstructor
 public abstract class TgMessage {
     protected final Long chatId;
-    protected final Integer messageId;
+    protected Integer messageId;
     protected String text;
     protected InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 }

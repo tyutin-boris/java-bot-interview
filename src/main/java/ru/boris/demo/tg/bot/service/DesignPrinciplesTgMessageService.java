@@ -22,10 +22,12 @@ public class DesignPrinciplesTgMessageService implements TgMessageService<Design
     public DesignPrinciplesMessage getTgMessage(Update update) {
         Long chatId = updateService.getChatId(update);
         Integer messageId = updateService.getMessageId(update);
-        Optional<DesignPrinciplesMessage> message = Optional.ofNullable(messages.get(chatId));
+        Optional<DesignPrinciplesMessage> messageOpt = Optional.ofNullable(messages.get(chatId));
 
-        if (message.isPresent()) {
-            return message.get();
+        if (messageOpt.isPresent()) {
+            DesignPrinciplesMessage designPrinciplesMessage = messageOpt.get();
+            designPrinciplesMessage.setMessageId(messageId);
+            return designPrinciplesMessage;
         }
 
         DesignPrinciplesMessage designPrinciplesMessage = new DesignPrinciplesMessage(chatId, messageId);
