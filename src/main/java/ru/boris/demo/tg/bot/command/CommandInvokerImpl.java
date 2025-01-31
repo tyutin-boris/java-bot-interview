@@ -11,7 +11,6 @@ import ru.boris.demo.tg.bot.dto.CallbackQueryType;
 import ru.boris.demo.tg.bot.dto.CommandType;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -20,8 +19,9 @@ public class CommandInvokerImpl implements CommandInvoker {
 
     private final Map<CommandType, Command> commands = new HashMap<>();
 
-    public CommandInvokerImpl(List<Command> commands) {
-        commands.forEach(command -> this.commands.put(command.getCommandType(), command));
+    @Override
+    public void setCommand(CommandType type, Command command) {
+        commands.put(command.getCommandType(), command);
     }
 
     @Override
