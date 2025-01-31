@@ -22,7 +22,7 @@ public class DesignPrincipalLeftCommand implements Command {
     @Override
     public void execute(Update update) {
         DesignPrinciplesMessage tgMessage = messageService.getTgMessage(update);
-        tgMessage.prevText();
+        tgMessage.previous();
         EditMessageText response = editMessageTextService.getEditMessageText(tgMessage);
         tgBotService.send(response);
     }

@@ -1,51 +1,37 @@
 package ru.boris.demo.tg.bot.message;
 
+import lombok.Getter;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ru.boris.demo.tg.bot.api.message.TgMessage;
+import ru.boris.demo.tg.bot.text.TgMessageDesignPrinciplesText;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 import static ru.boris.demo.tg.bot.dto.CallbackQueryType.DESIGN_PRINCIPAL_LEFT;
 import static ru.boris.demo.tg.bot.dto.CallbackQueryType.DESIGN_PRINCIPAL_RIGHT;
 
+@Getter
 public class DesignPrinciplesMessage extends TgMessage {
 
-    private final List<String> designPrinciples = new LinkedList<>();
-    private ListIterator<String> designPrinciplesIterator;
+    private TgMessageDesignPrinciplesText current;
 
     public DesignPrinciplesMessage(Long chatId, Integer messageId) {
         super(chatId, messageId);
         this.inlineKeyboardMarkup.setKeyboard(getButtons());
-        this.text = """
-                 Выделите аспекты приложения, которые могут изменятся,\s
-                 и отделите их от тех, которые всегда остаются постоянными.
-                """;
-
-        designPrinciples.add(0, text);
-        designPrinciples.add(1, "two");
-        designPrinciples.add(2, "three");
-        designPrinciples.add(3, "four");
-        designPrinciples.add(4, "fife");
-        designPrinciples.add(5, "six");
-        designPrinciples.add(6, "seven");
-
-        this.designPrinciplesIterator = designPrinciples.listIterator();
+        this.text = TgMessageDesignPrinciplesText.ONE.getText();
+        this.current = TgMessageDesignPrinciplesText.ONE;
     }
 
-    public void nextText() {
-        if (!designPrinciplesIterator.hasNext()) {
-            designPrinciplesIterator = designPrinciples.listIterator();
-        }
-        text = designPrinciplesIterator.next();
+    public String next() {
+        TgMessageDesignPrinciplesText currentText = current;
+        this.current = currentText.next();
+        return current.getText();
     }
 
-    public void prevText() {
-        if (!designPrinciplesIterator.hasPrevious()) {
-            designPrinciplesIterator = designPrinciples.listIterator();
-        }
-        text = designPrinciplesIterator.previous();
+    public String previous() {
+        TgMessageDesignPrinciplesText currentText = current;
+        this.current = currentText.previous();
+        return current.getText();
     }
 
     private List<List<InlineKeyboardButton>> getButtons() {
