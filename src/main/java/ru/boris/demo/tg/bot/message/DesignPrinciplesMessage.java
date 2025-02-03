@@ -24,20 +24,19 @@ public class DesignPrinciplesMessage extends TgMessage {
     }
 
     public void next() {
-        TgMessageDesignPrinciplesText currentText = current;
-        this.current = currentText.next();
-        this.text = currentText.getText();
+        TgMessageDesignPrinciplesText old = current;
+        this.current = old.next();
+        this.text = current.getText();
     }
 
     public void previous() {
-        TgMessageDesignPrinciplesText currentText = current;
-        this.current = currentText.previous();
-        this.text = currentText.getText();
+        TgMessageDesignPrinciplesText old = current;
+        this.current = old.previous();
+        this.text = current.getText();
     }
 
     @Override
     public String getText() {
-        current();
         return text;
     }
 
