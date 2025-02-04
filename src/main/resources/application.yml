@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: demo-tg-bot
+bot:
+  token: ${BOT_TOKEN}
+  username: ${BOT_USERNAME}

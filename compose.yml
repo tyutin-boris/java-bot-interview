@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  bot-java-interview:
+    container_name: java-bot
+    build:
+      context: .
+    ports:
+      - "9191:9191"
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      BOT_USERNAME: ${BOT_USERNAME}

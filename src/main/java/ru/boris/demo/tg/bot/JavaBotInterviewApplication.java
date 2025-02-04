@@ -4,10 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoTgBotApplication {
+public class JavaBotInterviewApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoTgBotApplication.class, args);
+        SpringApplication.run(JavaBotInterviewApplication.class, args);
     }
-
 }
